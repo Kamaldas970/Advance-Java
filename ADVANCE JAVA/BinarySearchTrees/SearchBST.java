@@ -1,4 +1,5 @@
 package BinarySearchTrees;
+import java.util.*;
 public class searchBST{
    static class Node{
         Node left;
@@ -56,14 +57,8 @@ public class searchBST{
         }
         else{
               return search(root.right, key);
-        }
-
-
-        
-       
-       
+        }  
     }
-
 
     public static Node delete(Node root, int value){
 
@@ -103,8 +98,70 @@ public class searchBST{
          return root;
     }
 
+    public static void range(Node root,int k1, int k2){
+        if(root==null){
+            return;
+        }
+        if(root.data<=k1 && root.data>=k2){
+            range(root.left, k1, k2);
+            System.out.println(root.data);
+            range(root.right, k1, k2);
+
+        }
+           else if(root.data < k1){
+               range(root.left, k1, k2);
+            }
+            else{
+              range(root.left, k1, k2);
+            }
+        
+
+
+    }
+
+  public static void printleaf(ArrayList<Integer> path){
+        for(int i=0;i<path.size();i++){
+           System.out.print(path.get(i) + "->");
+        }
+        System.out.println("NULL");
+    }
+    public static void rootleaf(Node root, ArrayList<Integer> path){
+        if(root==null){
+            return;
+        }
+
+      path.add(root.data);
+
+      if(root.left==null && root.right==null){
+        printleaf(path);
+      }else{
+
+      rootleaf(root.left, path);
+      rootleaf(root.right, path);
+      path.remove(path.size()-1);
+      }
+
+    }
+    public static boolean isValid(Node root, Node min, Node max){
+        if(root==null){
+            return true;
+        }
+
+        if(min!=null && root.data <= min.data){
+            return false;
+        }
+        else if(max!=null && root.data >= max.data){
+            return false;
+        }
+
+        return isValid( root.left,root, min) 
+                && isValid(root.right, root, max);
+    }
+  
+
     public static void main(String arg[]){
-         int value[]={1,3,4,5,6,8,10,11,14};
+          int value[]={1,1,1,1};
+       
         searchBST tree=new searchBST();
         Node root=null;
 
@@ -112,25 +169,31 @@ public class searchBST{
             root=insert(root, value[i]);
         }
 
-        inOrder(root);
-        System.out.print(root);
+      inOrder(root);
+    System.out.println(root);
 
-    //     int key=1;
+        int key=1;
 
-    //    if(search(root, 1)){
-    //     System.out.println("the key was found");
+       if(search(root, 1)){
+        System.out.println("the key was found");
 
-    //    }else{
-    //     System.out.println("The key was not found");
-    //    }
+       }else{
+        System.out.println("The key was not found");
+       }
 
       root= delete(root, 1);
       System.out.print(root);
        inOrder(root);
         System.out.print(root);
+        range(root, 5, 12);
 
-
-    
+       
+        rootleaf(root, new ArrayList<>());
+       if(isValid(root, null, null)){
+        System.out.println("Valid");
+       }else{
+       System.out.println("NOt valid");
+       }
 
 
     }
