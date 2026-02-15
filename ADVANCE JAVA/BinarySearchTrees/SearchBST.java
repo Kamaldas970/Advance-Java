@@ -157,6 +157,19 @@ public class searchBST{
         return isValid( root.left,root, min) 
                 && isValid(root.right, root, max);
     }
+
+   public static Node createBST(int value[], int st, int end){
+  if(st>end){
+return null;
+  }
+
+
+    int mid=(st+end)/2;
+    Node root=new Node(value[mid]);
+    root.left=createBST(value, st, mid-1);
+    root.right=createBST(value, mid+1, end);
+    return root;
+}
   
 
     public static void main(String arg[]){
@@ -194,7 +207,11 @@ public class searchBST{
        }else{
        System.out.println("NOt valid");
        }
+        root=createBST(value, 0, value.length-1);
+    System.out.println(root);
+     inOrder(root);
 
 
     }
 }
+
