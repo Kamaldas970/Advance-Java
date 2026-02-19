@@ -42,8 +42,8 @@ public void display(){
     }
     public static void main(String args[]){
         LL l=new LL();
-        l.addFirst(1);
-         l.addFirst(1);
+        l.addLast(1);
+         l.addLast(1);
          
            l.addFirst(7);
          
