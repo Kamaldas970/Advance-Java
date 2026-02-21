@@ -1,76 +1,92 @@
-package LinkedList;
-public class DoublyLinkedList{
+package practice;
+public class doubleLL{
+
     class Node{
         int data;
         Node next;
         Node prev;
 
-        public Node(int data){
+        Node(int data){
             this.data=data;
             this.next=null;
             this.prev=null;
         }
     }
-
     public static Node head;
     public static Node tail;
     public static int size;
 
-    void addFirst(int data){
+    public  void addFisrst(int data){
         Node newNode=new Node(data);
-
-      if(head==null){
-        head=tail=newNode;
-        return;
-      }
+        size++;
+        if(head==null){
+            head=tail=newNode;
+        }
         newNode.next=head;
         head.prev=newNode;
         head=newNode;
 
-
     }
-
-    public void display(){
+    public  void addLast(int data){
+        Node newNode=new Node(data);
+        size++;
+        if(tail==null){
+            head=tail=newNode;
+        }
+       tail.next=newNode;
+       newNode.prev=tail;
+       tail=newNode;
+    }
+    public static void display(){
         Node temp=head;
 
         while(temp!=null){
-            System.out.println(temp.data + " "+ "==>");
+            System.out.print(temp.data + " ==>");
             temp=temp.next;
         }
-        System.out.println("null");
+        System.out.print("NULL");
     }
 
-    int removeFirst(){
+    public  void addMid(int data, int idx){
+        Node newNode=new Node(data);
+        size++;
+        Node temp=head;
+
+        if(idx==0){
+            addFisrst(data);
+            return;
+        }
 
         if(head==null){
-            System.out.println("LL is empty");
-            return Integer.MIN_VALUE;
+            head=tail=newNode;
+            return;
         }
-       else if(size==1){
-            int value=head.data;
-            head=tail=null;
-            
+        int i=0;
+        while(i<idx-1 && temp!=null){
+            temp=temp.next;
+            i++;
         }
+        newNode.next=temp.next;
+       newNode.prev=temp;
+       temp.next=newNode;
 
-        int value=head.data;
-
-        head=head.next;
-        head.prev=null;
-        return value;
-
-
+       if(temp.next!=null){
+        temp.next.prev=newNode;
+        
+       }
 
     }
-
     public static void main(String args[]){
-        DoublyLinkedList dll=new DoublyLinkedList();
-        dll.addFirst(1);
-        dll.addFirst(2);
-        dll.addFirst(3);
-        
-        dll.removeFirst();
-        dll.display();
-        
-    }
+        doubleLL ll=new doubleLL();
+        ll.addFisrst(1);
+        ll.addFisrst(2);
+        ll.addLast(5);
+        ll.addLast(7);
+        ll.addMid(3,2);
+        ll.addMid(2,3);
+        ll.display();
+        System.out.println("the size is : "+" "+ ll.size);
 
+
+    }
 }
