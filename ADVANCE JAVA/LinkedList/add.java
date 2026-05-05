@@ -5,7 +5,7 @@ public class add{
         int data;
         Node next;
 
-        Node data(int data){
+        Node (int data){
             this.data=data;
             this.next=null;
         }
